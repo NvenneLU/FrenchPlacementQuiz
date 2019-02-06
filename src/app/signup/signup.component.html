@@ -1,0 +1,67 @@
+<div class="row">
+  <div class="col l12 s12 m12">
+    <div [@flyInOut] (@flyInOut.done)="animFinished()" *ngIf="this.toggleState" class="card white" style="margin-top: 175px;">
+      <div class="card-content">
+        <span class="card-title center">Placement Test for French Second Language</span>
+        <br/>
+
+        <div class="row">
+        <form id="signup" class="col s12" (ngSubmit)="onSubmit()" #studentForm="ngForm">
+          <div class="row">
+            <div class="input-field col m12 l6 s12">
+              <input id="studentID" name="studentID" minlength="4" [(ngModel)]="studentID" #sname="ngModel" type="text" required class="validate form-control" >
+              <label for="name">Laurentian ID</label>
+              <div *ngIf="sname.invalid && (sname.dirty || sname.touched)"
+                 class="alert alert-danger">
+
+                <div class="helper-text red-text" *ngIf="sname.errors.required">
+                  Laurentian ID is required.
+                </div>
+                <div class="helper-text red-text" *ngIf="sname.errors.minlength">
+                  Name must be at least 4 characters long.
+                </div>
+
+              </div>
+            </div>
+            <div class="input-field col m12 l6 s12">
+              <input id="password" name="password" type="password" [(ngModel)]="password" #snumber="ngModel" required class="validate form-control">
+              <label for="studentnumber">Password</label>
+              <div *ngIf="snumber.invalid && (snumber.dirty || snumber.touched)"
+                 class="alert alert-danger">
+
+                <div class="helper-text red-text" *ngIf="snumber.errors.required">
+                  Password is required.
+                </div>
+                <div class="helper-text red-text" *ngIf="snumber.errors.pattern">
+                  Not a valid studen number.
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="progress" *ngIf="loading">
+          <div class="indeterminate"></div>
+      </div>
+
+      <div class="card-action">
+        <a class="dropdown-trigger hide-on-small-only waves-effect waves-light btn blue right" data-target='dropdown1'>Contact</a>
+
+        <!-- Dropdown Structure -->
+        <ul id='dropdown1' class='dropdown-content'>
+          <li><a >For any questions, please contact Mme Renee Corbeil</a></li>
+          <li><a href="mailto:rcorbeil@laurentian.ca">@ rcorbeil@laurentian.ca</a></li>
+          <li class="divider" tabindex="-1"></li>
+        </ul>
+
+
+        <button (click)="onSubmit()" class="btn waves-effect waves-light blue" type="submit" [disabled]="!studentForm.form.valid" name="action">Start Quiz
+          <i class="material-icons right">send</i>
+        </button>
+        <span>{{error}}</span>
+        <a routerLink="/intro"  class="hide-on-small-only waves-effect waves-light btn blue right" style="margin-right: 10px;">Back</a>
+      </div>
+    </div>
+  </div>
+</div>

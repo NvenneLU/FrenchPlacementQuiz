@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col s12 m12 l12">
+    <form novalidate [formGroup]="p2Form">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="audioFile" type="text" formControlName="audioFile">
+          <label for="audioFile">Audio File</label>
+        </div>
+      </div>
+      <div class="card grey lighten-4" *ngFor="let statement of this.statements; index as i">
+        <div class="card-content">
+          <h6>{{i + 1}}.</h6>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="statement{{i}}" type="text"  required formControlName="statement{{i}}" class="validate form-control">
+              <label for="statement{{i}}">Statement {{i + 1}}</label>
+            </div>
+            <div class="input-field col s5">
+              <input id="answer{{i}}A" type="text"  required formControlName="statementAns{{i}}0" class="validate form-control">
+              <label for="answer{{i}}A">Answer 1</label>
+            </div>
+            <div class="input-field col s5">
+              <input id="answer{{i}}B" type="text"  required formControlName="statementAns{{i}}1" class="validate form-control">
+              <label for="answer{{i}}B">Answer 2</label>
+            </div>
+            <div class="input-field col s2">
+              <input id="correct{{i}}" type="text"  required formControlName="correct{{i}}" class="validate form-control">
+              <label for="correct{{i}}">Correct {{i + 1}}</label>
+            </div>
+            <div class="input-field col s5">
+              <input id="answer{{i}}C" type="text"  required formControlName="statementAns{{i}}2" class="validate form-control">
+              <label for="answer{{i}}C">Answer 3</label>
+            </div>
+            <div class="input-field col s5">
+              <input id="answer{{i}}D" type="text"  required formControlName="statementAns{{i}}3" class="validate form-control">
+              <label for="answer{{i}}D">Answer 4</label>
+            </div>
+            <div class="input-field col s2">
+              <input id="marks{{i}}" type="text"  required formControlName="marks{{i}}" class="validate form-control">
+              <label for="marks{{i}}">Marks {{i + 1}}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <button (click)="save()" type="submit" [disabled]="p2Form.invalid || p2Form.pristine" class="waves-effect waves-light btn green">Save</button>
+          <a *ngIf="this.question" (click)="delete()" class="waves-effect waves-light btn red">Delete</a>
+          <a (click)="back()" class="waves-effect waves-light btn blue">Back</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

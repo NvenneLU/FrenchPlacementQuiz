@@ -1,0 +1,31 @@
+<div *ngIf="question">
+  <a class="waves-effect btn-floating btn green">
+    <i class="large material-icons">hearing</i>
+  </a>  <b>Listen Carefully</b>
+  <div class="container">
+    <div class="row">
+
+      <div class="col l6 s12 m12 "><label >
+        <input type="checkbox" [attr.disabled]="(selected == 1 || selected == 0) ? null : '' " (click)="checked(1)" [checked]="selected == 1"/>
+        <span><b class="blue-text" >A</b></span>
+      </label></div>
+      <div class="col l6 s12 m12 "><label>
+        <input type="checkbox" [attr.disabled]="(selected == 2 || selected == 0) ? null : '' " (click)="checked(2)" [checked]="selected == 2"/>
+        <span><b class="blue-text" >B</b></span>
+      </label></div>
+      <div class="col l6 s12 m12 "><label >
+        <input type="checkbox" [attr.disabled]="(selected == 3 || selected == 0) ? null : '' " (click)="checked(3)" [checked]="selected == 3"/>
+        <span><b class="blue-text" >C</b></span>
+      </label></div>
+      <div class="col l6 s12 m12 "><label >
+        <input type="checkbox" [attr.disabled]="(selected == 4 || selected == 0) ? null : '' " (click)="checked(4)" [checked]="selected == 4"/>
+        <span><b class="blue-text" >D</b></span>
+      </label></div>
+      <div class="col l12 s12 m12 ">
+        <a [@fadeIn] *ngIf="selected" class="waves-effect waves-light btn-large blue" style="margin-top: 15px;" (click)="next()">Next</a>
+        <p *ngIf="!selected" class="" style="margin-top: 30px; margin-bottom: 18px"> Please answer the question to continue </p>
+      </div>
+    </div>
+
+  </div>
+</div>

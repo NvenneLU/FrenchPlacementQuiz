@@ -1,0 +1,100 @@
+<div class="row">
+  <div class="col s12 m12 l12">
+    <div class="card grey lighten-4 left-align">
+      <div class="card-content">
+        <div class="row">
+          <form novalidate [formGroup]="p3Form">
+            <div class="row">
+              <div class="input-field col s4">
+                <input id="audioFile" type="text" formControlName="audioFile">
+                <label for="audioFile">Audio File</label>
+              </div>
+              <div class="input-field col s4">
+                <input id="correct" type="number" formControlName="correct" required class="validate form-control">
+                <label for="correct">Correct</label>
+              </div>
+              <div class="input-field col s4">
+                <input id="marks" type="number" formControlName="marks" required class="validate form-control">
+                <label for="marks">Marks</label>
+              </div>
+            </div>
+            <div class="input-field col s12">
+              <textarea id="textarea1" class="materialize-textarea validate form-control" formControlName="text" required (input)="validateAllFormFields(p3Form)"></textarea>
+              <label for="textarea1">Text</label>
+              <div *ngIf="text.invalid && (text.dirty || text.touched)"
+                 class="alert alert-danger">
+                <div class="helper-text red-text" *ngIf="text.errors.required">
+                  Text is required.
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="option1s" type="text"   required formControlName="option0" validateOption="text" class="validate form-control">
+                <label for="option1s">Option 1</label>
+                <div *ngIf="options[0].invalid && (options[0].dirty || options[0].touched)"
+                   class="alert alert-danger">
+                  <div class="helper-text red-text" *ngIf="options[0].errors.required">
+                    Option is required.
+                  </div>
+                  <div class="helper-text red-text" *ngIf="options[0].errors.validateOption && !options[0].errors.required">
+                    Option Not Valid
+                  </div>
+                </div>
+              </div>
+              <div class="input-field col s6">
+                <input id="option2s" type="text"  required formControlName="option1" class="validate form-control">
+                <label for="option2s">Option 2</label>
+                <div *ngIf="options[1].invalid && (options[1].dirty || options[1].touched)"
+                   class="alert alert-danger">
+                  <div class="helper-text red-text" *ngIf="options[1].errors.required">
+                    Option is required.
+                  </div>
+                  <div class="helper-text red-text" *ngIf="options[1].errors.validateOption && !options[1].errors.required">
+                    Option Not Valid
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="option3s" type="text"   required formControlName="option2" class="validate form-control">
+                <label for="option3s">Option 3</label>
+                <div *ngIf="options[2].invalid && (options[2].dirty || options[2].touched)"
+                   class="alert alert-danger">
+                  <div class="helper-text red-text" *ngIf="options[2].errors.required">
+                    Option is required.
+                  </div>
+                  <div class="helper-text red-text" *ngIf="options[2].errors.validateOption && !options[2].errors.required">
+                    Option Not Valid
+                  </div>
+                </div>
+              </div>
+              <div class="input-field col s6">
+                <input id="option4s" type="text"   required formControlName="option3" class="validate form-control">
+                <label for="option4s">Option 4</label>
+                <div *ngIf="options[3].invalid && (options[3].dirty || options[3].touched)"
+                   class="alert alert-danger">
+                  <div class="helper-text red-text" *ngIf="options[3].errors.required">
+                    Option is required.
+                  </div>
+                  <div class="helper-text red-text" *ngIf="options[3].errors.validateOption && !options[3].errors.required">
+                    Option Not Valid
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <button (click)="onSubmit()" type="submit" [disabled]="p3Form.invalid || p3Form.pristine" class="waves-effect waves-light btn green">Save</button>
+        <a *ngIf="this.question" (click)="delete()" class="waves-effect waves-light btn red">Delete</a>
+        <a (click)="back()" class="waves-effect waves-light btn blue">Back</a>
+      </div>
+    </div>
+  </div>
+</div>

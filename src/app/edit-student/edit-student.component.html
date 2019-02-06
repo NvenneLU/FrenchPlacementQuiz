@@ -1,0 +1,60 @@
+<div class="row">
+  <div class="col s12 m12 l12">
+    <div class="row">
+      <form novalidate [formGroup]="studentForm">
+        <div class="input-field col s4">
+          <input id="name" type="text" formControlName="name" class="validate form-control">
+          <label for="name">Student name</label>
+        </div>
+        <div class="input-field col s4">
+          <input id="studentID" type="number" formControlName="studentID" class="validate form-control">
+          <label for="studentID">Student ID</label>
+        </div>
+        <div class="input-field col s4">
+          <input id="email" type="text"  formControlName="email" class="validate form-control">
+          <label for="email">Email</label>
+        </div>
+        <div class="input-field col s4">
+          <input id="marks" type="number" min="0" (change)="updateClass()" formControlName="marks" class="validate form-control">
+          <label for="marks">Marks</label>
+        </div>
+        <div class="input-field col s4">
+          <select (change)="updateSelect()" formControlName="part" class="validate form-control">
+            <option  value="1">Part A</option>
+            <option  value="2">Part B</option>
+            <option  value="3">Part C</option>
+            <option  value="4">Part D</option>
+          </select>
+          <label>Section #</label>
+        </div>
+        <div class="input-field col s4">
+          <select formControlName="question" class="validate form-control">
+            <option *ngFor="let q of questions[this.selectedID]; index as i" value="{{i + 1}}">Question {{i + 1}}</option>
+          </select>
+          <label>Question #</label>
+        </div>
+        <div class="input-field col s4">
+          <input id="timeLeft" type="number"  min="0" formControlName="timeLeft" (change)="updateClass()" class="validate form-control">
+          <label for="timeLeft">Time Left</label>
+        </div>
+        <div class="input-field col s4">
+          <input id="class" type="text" disabled formControlName="class" class="validate form-control">
+          <label for="class">Class</label>
+        </div>
+        <div class="input-field col s4">
+          <label>
+            <input type="checkbox" class="validate form-control" formControlName="isFinished" (change)="updateClass()" />
+            <span>Finished</span>
+          </label>
+        </div>
+      </form>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <button (click)="save()" [disabled]="studentForm.invalid || studentForm.pristine"class="waves-effect waves-light btn green">Save</button>
+        <a (click)="delete()" class="waves-effect waves-light btn red">Delete</a>
+        <a (click)="back()" class="waves-effect waves-light btn blue">Back</a>
+      </div>
+    </div>
+  </div>
+</div>

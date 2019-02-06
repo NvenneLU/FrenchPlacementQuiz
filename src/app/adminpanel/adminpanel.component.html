@@ -1,0 +1,426 @@
+<meta charset="utf-8" />
+<div style="position: absolute; top: 48%; left: 48%;"*ngIf="!this.load">
+  <div class="preloader-wrapper big active">
+    <div class="spinner-layer spinner-red-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="adminContainer" *ngIf="this.load">
+  <nav>
+    <div class="nav-wrapper white">
+      <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons blue-text">menu</i></a>
+      <a class="brand-logo center blue-text">Admin Control Panel</a>
+    </div>
+  </nav>
+
+
+
+  <div class="row" *ngIf="panelSelect == 1 && !editing && !editingStudent">
+    <div class="col s12 l12 m12">
+      <div class="card white">
+        <div class="card-content center">
+          <span class="card-title"><b>{{option}}</b></span>
+          <h6>Class result requirements:</h6>
+          <div class="row">
+            <div class="col s12 m12 l12">
+              0 - <b>FREN 1050</b> -
+              <div class="input-field inline" style="margin-top: 26px;">
+                <input [(ngModel)]="fren10501060" id="fren10501060" min="1" max="{{fren10601505 - 1}}" type="number" class="validate">
+              </div>
+              <b>|&nbsp;&nbsp;</b> {{fren10501060 + 1}} - <b>FREN 1060</b> -
+              <div class="input-field inline" style="margin-top: 26px;">
+                <input [(ngModel)]="fren10601505" id="fren10601505" min="{{fren10501060 + 1}}" max="{{fren15052506 - 1}}" type="number" class="validate">
+              </div>
+              <b>|&nbsp;&nbsp;</b> {{fren10601505 + 1}} - <b>FREN 1505</b> -
+              <div class="input-field inline" style="margin-top: 26px;">
+                <input [(ngModel)]="fren15052506" id="fren15052506" type="number" min="{{fren10601505 + 1}}" max="{{totalMarks - 1}}" class="validate">
+              </div>
+              <b>|&nbsp;&nbsp;</b> {{fren15052506 + 1}} - <b>FREN 2506</b> - {{totalMarks}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12">
+              <div class="input-field inline">
+                <i class="material-icons prefix">alarm</i>
+                <input [(ngModel)]="quizTime" id="quizTime" type="number" min="1" class="validate">
+                <label for="quizTime">Quiz Clock</label>
+              </div>
+              <b>MIN</b>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s6">
+              <div class="input-field inline">
+                <i class="material-icons prefix">timer</i>
+                <input [(ngModel)]="config.questionTime[0]" id="questionTime1" type="number" min="1" class="validate">
+                <label for="questionTime1">Question A Timer</label>
+              </div>
+              <b>SEC</b>
+            </div>
+            <div class="col s6">
+              <div class="input-field inline">
+                <i class="material-icons prefix">timer</i>
+                <input [(ngModel)]="config.questionTime[1]" id="questionTime2" type="number" min="1" class="validate">
+                <label for="questionTime2">Question B Timer</label>
+              </div>
+              <b>SEC</b>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s6">
+              <div class="input-field inline">
+                <i class="material-icons prefix">timer</i>
+                <input [(ngModel)]="config.questionTime[2]" id="questionTime3" type="number" min="1" class="validate">
+                <label for="questionTime3">Question C Timer</label>
+              </div>
+              <b>SEC</b>
+            </div>
+            <div class="col s6">
+              <div class="input-field inline">
+                <i class="material-icons prefix">timer</i>
+                <input [(ngModel)]="config.questionTime[3]" id="questionTime4" type="number" min="1" class="validate">
+                <label for="questionTime4">Question D Timer</label>
+              </div>
+              <b>SEC</b>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12">
+              <a (click)="saveConfig()" class="waves-effect waves-light green btn">Save Configuration</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="panelSelect == 2 && !editing && !editingStudent">
+    <div class="col s12 l12 m12">
+      <div class="card white">
+        <div class="card-content center">
+          <span class="card-title"><b>{{option}}</b></span>
+          <div class="row">
+            <div class="col l12 s12 m12">
+              <h5>Questions Part 1</h5>
+              <table class="highlight responsive-table">
+                <thead>
+                  <tr>
+                    <th>Question #</th>
+                    <th>Audio File</th>
+                    <th>Correct Answer</th>
+                    <th>Marks</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let question of questions[0]; index as i">
+                    <td>{{i + 1}}&emsp;<a (click)="editQuestion(i,1)" class="btn-floating btn-small waves-effect waves-light red tooltipped" data-position="right" data-tooltip="Edit Question"><i class="material-icons">mode_edit</i></a></td>
+                    <td>{{question.audioFile}}</td>
+                    <td>{{question.correct}}</td>
+                    <td>{{question.marks}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Total Questions P1<i class="material-icons" style="position: relative; top: 7px;">arrow_right</i>{{calTotalQuestions(1)}}</th>
+                    <th>Total Marks P1<i class="material-icons" style="position: relative; top: 7px;">arrow_right</i>{{calTotalMarks(1)}}</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+
+          <br/>
+          <div class="row">
+            <div class="col l12 s12 m12">
+              <h5>Questions Part 2</h5>
+              <table class="highlight responsive-table">
+                <thead>
+                  <tr>
+                    <th>Question #</th>
+                    <th>Audio File</th>
+                    <th>Statements & Answers</th>
+                    <th>Correct Answers</th>
+                    <th>Marks</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let question of questions[1]; index as i">
+                    <td>{{i + 1}}&emsp;<a (click)="editQuestion(i,2)" class="btn-floating btn-small waves-effect waves-light red tooltipped" data-position="right" data-tooltip="Edit Question"><i class="material-icons">mode_edit</i></a></td>
+                    <td>{{question.audioFile}}</td>
+                    <td><a href="#modal3" class="waves-effect waves-light blue btn-small modal-trigger" (click)="select(i,2)">View</a></td>
+                    <td>{{question.correct}}</td>
+                    <td>{{calculateMarks(question.marks)}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Total Questions P2<i class="material-icons" style="position: relative; top: 7px;">arrow_right</i>{{calTotalQuestions(2)}}</th>
+                    <th>Total Marks P2<i class="material-icons" style="position: relative; top: 7px;">arrow_right</i>{{calTotalMarks(2)}}</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+          <br/>
+          <div class="row">
+            <div class="col l12 s12 m12">
+              <h5>Questions Part 3</h5>
+              <table class="highlight responsive-table">
+                <thead>
+                  <tr>
+                    <th>Question #</th>
+                    <th>Text</th>
+                    <th>Options</th>
+                    <th>Correct Answer</th>
+                    <th>Marks</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let question of questions[2]; index as i">
+                    <td>{{i + 1}}&emsp;<a (click)="editQuestion(i,3)" class="btn-floating btn-small waves-effect waves-light red tooltipped" data-position="right" data-tooltip="Edit Question"><i class="material-icons">mode_edit</i></a></td>
+                    <td><a href="#modal4" class="waves-effect waves-light blue btn-small modal-trigger" (click)="select(i,3)">View</a></td>
+                    <td>{{question.options}}</td>
+                    <td>{{question.correct}}</td>
+                    <td>{{question.marks}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Total Questions P3<i class="material-icons" style="position: relative; top: 7px;">arrow_right</i>{{calTotalQuestions(3)}}</th>
+                    <th>Total Marks P3<i class="material-icons" style="position: relative; top: 7px;">arrow_right</i>{{calTotalMarks(3)}}</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+          <br/>
+          <div class="row">
+            <div class="col l12 s12 m12">
+              <h5>Questions Part 4</h5>
+              <table class="highlight responsive-table">
+                <thead>
+                  <tr>
+                    <th>Question #</th>
+                    <th>Text</th>
+                    <th>Options</th>
+                    <th>Correct Answer</th>
+                    <th>Marks</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let question of questions[3]; index as i">
+                    <td>{{i + 1}}&emsp;<a (click)="editQuestion(i,4)" class="btn-floating btn-small waves-effect waves-light red tooltipped" data-position="right" data-tooltip="Edit Question"><i class="material-icons">mode_edit</i></a></td>
+                    <td><a href="#modal5" class="waves-effect waves-light blue btn-small modal-trigger" (click)="select(i,4)">View</a></td>
+                    <td><a href="#modal6" class="waves-effect waves-light blue btn-small modal-trigger" (click)="select(i,4)">View</a></td>
+                    <td>{{question.correct}}</td>
+                    <td>{{calculateMarks(question.marks)}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Total Questions P4<i class="material-icons" style="position: relative; top: 7px;">arrow_right</i>{{calTotalQuestions(4)}}</th>
+                    <th>Total Marks P4<i class="material-icons" style="position: relative; top: 7px;">arrow_right</i>{{calTotalMarks(4)}}</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Total Questions<i class="material-icons" style="position: relative; top: 7px;">arrow_right</i>{{calTotalQuestions(5)}}</th>
+                <th>Total Marks<i class="material-icons" style="position: relative; top: 7px;">arrow_right</i>{{calTotalMarks(5)}}</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="editing">
+    <div class="col s12 l12 m12">
+      <div class="card white">
+        <div class="card-content center">
+          <span class="card-title"><b *ngIf="!eQuestion">New Question for part {{editing}}</b><b *ngIf="eQuestion">Editing question {{eQuestion.num}} from {{editing}}</b></span>
+          <app-editquestionp1 *ngIf="editing == 1" [question]="eQuestion" (complete)="complete($event)"></app-editquestionp1>
+          <app-editquestionp2 *ngIf="editing == 2" [question]="eQuestion" (complete)="complete($event)"></app-editquestionp2>
+          <app-editquestionp3 *ngIf="editing == 3" [question]="eQuestion" (complete)="complete($event)"></app-editquestionp3>
+          <app-editquestionp4 *ngIf="editing == 4" [question]="eQuestion" (complete)="complete($event)"></app-editquestionp4>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="editingStudent">
+    <div class="col s12 l12 m12">
+      <div class="card white">
+        <div class="card-content center">
+          <span class="card-title"><b>Modifying Student {{selectedStudent.name}}</b></span>
+          <app-edit-student [student]="selectedStudent" (complete)="complete2($event)"></app-edit-student>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="panelSelect == 3 && !editing && !editingStudent">
+    <div class="col s12 l12 m12">
+      <div class="card white">
+        <div class="card-content center">
+          <div class="row">
+            <div class="col s12">
+              <span class="card-title"><b>{{option}}</b></span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s8">
+              <div class="input-field">
+                <i class="material-icons prefix">search</i>
+                <input [(ngModel)]="search" id="search" (input)="filterTable()" type="text">
+                <label for="search">Search</label>
+              </div>
+            </div>
+            <div class="input-field col s4">
+              <select [(ngModel)]="filter" (change)="filterTable()">
+                <option value="0" selected>Name</option>
+                <option value="1">Student ID</option>
+                <option value="2">Email</option>
+                <option value="3">Progress</option>
+                <option value="4">Marks</option>
+                <option value="5">Class</option>
+              </select>
+              <label>Filter</label>
+            </div>
+          </div>
+
+          <table id="studentTable">
+            <thead>
+              <tr>
+                <th (click)="sortTable(0)">Name</th>
+                <th (click)="sortTable(1)">Student ID</th>
+                <th (click)="sortTable(2)">Email</th>
+                <th (click)="sortTable(3)">Progress</th>
+                <th (click)="sortTable(4)">Marks</th>
+                <th (click)="sortTable(5)">Class</th>
+                <th (click)="sortTable(6)">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let student of this.students; index as i">
+                <td (mouseenter)="changeID(i + 1)" (mouseleave)="changeID()"><span *ngIf="hoverID != i + 1">{{student.name}}</span><a (click)="editStudent(i)" *ngIf="hoverID == i + 1" class="waves-effect waves-light btn-small left">Modify</a></td>
+                <td>{{student.studentID}}</td>
+                <td><a href="mailto:{{student.email}}">{{student.email}}</a></td>
+                <td>{{student.progress}}</td>
+                <td>{{student.marks}}</td>
+                <td>{{student.class}}</td>
+                <td>{{student.completeTime}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div *ngIf="this.questions && this.load">
+
+  <div id="modal3" class="modal">
+    <div *ngIf="this.pID == 2">
+      <div class="modal-content">
+        <div class="row">
+          <ul class="collapsible">
+            <li >
+              <div class="collapsible-header"><i class="material-icons">more_horiz</i>{{questions[1][qID].statements[0]}}</div>
+              <div class="collapsible-body">{{questions[1][qID].statementAnswers[0][0]}} - {{questions[1][qID].statementAnswers[0][1]}} - {{questions[1][qID].statementAnswers[0][2]}} - {{questions[1][qID].statementAnswers[0][3]}}</div>
+            </li>
+            <li >
+              <div class="collapsible-header"><i class="material-icons">more_horiz</i>{{questions[1][qID].statements[1]}}</div>
+              <div class="collapsible-body">{{questions[1][qID].statementAnswers[1][0]}} - {{questions[1][qID].statementAnswers[1][1]}} - {{questions[1][qID].statementAnswers[1][2]}} - {{questions[1][qID].statementAnswers[1][3]}}</div>
+            </li>
+            <li >
+              <div class="collapsible-header"><i class="material-icons">more_horiz</i>{{questions[1][qID].statements[2]}}</div>
+              <div class="collapsible-body">{{questions[1][qID].statementAnswers[2][0]}} - {{questions[1][qID].statementAnswers[2][1]}} - {{questions[1][qID].statementAnswers[2][2]}} - {{questions[1][qID].statementAnswers[2][3]}}</div>
+            </li>
+            <li >
+              <div class="collapsible-header"><i class="material-icons">more_horiz</i>{{questions[1][qID].statements[3]}}</div>
+              <div class="collapsible-body">{{questions[1][qID].statementAnswers[3][0]}} - {{questions[1][qID].statementAnswers[3][1]}} - {{questions[1][qID].statementAnswers[3][2]}} - {{questions[1][qID].statementAnswers[3][3]}}</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal4" class="modal">
+    <div *ngIf="this.pID == 3">
+      <div class="modal-content">
+        <div class="row" *ngIf="this.questions[2][qID]">
+          <p class="flow-text">{{questions[2][qID].text}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal5" class="modal">
+    <div *ngIf="this.pID == 4">
+      <div class="modal-content">
+        <div class="row" *ngIf="this.questions[3][qID]">
+          <p class="flow-text">{{questions[3][qID].text}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal6" class="modal">
+    <div *ngIf="this.pID == 4">
+      <div class="modal-content">
+        <div *ngIf="this.questions[3][qID]" class="row">
+          <p class="flow-text" *ngFor="let option of questions[3][qID].options; index as i">{{i + 1}}.&ensp;{{option}}&ensp; Correct:&ensp; {{option[questions[3][qID].correct[i] - 1]}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <ul id="slide-out" class="sidenav sidenav-fixed">
+    <li><div class="user-view">
+     <b class="blue-text">Admin Panel</b>
+    </div></li>
+    <hr/>
+    <li><a (click)="changePanel(1)" class="waves-effect sidenav-close"><i class="material-icons">settings</i>Test Settings</a></li>
+    <li><div class="divider"></div></li>
+    <li><a (click)="changePanel(2)" class="waves-effect sidenav-close"><i class="material-icons">mode_edit</i>Questions</a></li>
+    <li><div class="divider"></div></li>
+    <li><a (click)="changePanel(3)" class="waves-effect sidenav-close"><i class="material-icons">people</i>Students</a></li>
+    <li><div class="divider"></div></li>
+    <li><a routerLink="/intro"  class="waves-effect sidenav-close"><i class="material-icons">exit_to_app</i>Exit</a></li>
+  </ul>
+
+  <div class="fixed-action-btn tooltipped" data-position="left" data-tooltip="New Question" *ngIf="panelSelect == 2">
+    <a class="btn-floating btn-large red">
+      <i class="large material-icons">add</i>
+    </a>
+    <ul>
+      <li><a (click)="newQuestion(1)" class="btn-floating red">P1</a></li>
+      <li><a (click)="newQuestion(2)" class="btn-floating yellow darken-1">P2</a></li>
+      <li><a (click)="newQuestion(3)" class="btn-floating green">P3</a></li>
+      <li><a (click)="newQuestion(4)" class="btn-floating blue">P4</a></li>
+    </ul>
+  </div>
+</div>

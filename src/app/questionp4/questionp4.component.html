@@ -1,0 +1,40 @@
+<div *ngIf="question">
+  <div class="container">
+    <div class="row">
+      <div class="col l12 s12 m12">
+        <h6 *ngIf="question.title">{{question.title}}</h6>
+        <span *ngFor="let word of this.words; index as i" class="flow-text">
+          <span *ngIf="word == '[]'">
+            <a href="#modal2" class="waves-effect waves-light blue btn-small modal-trigger no-uppercase" (click)="select(i)">{{selected[i]}}</a>
+          </span>
+          <span *ngIf="word != '[]'">
+            {{word}}
+          </span>
+
+        </span>
+      </div>
+      <div class="col l12 s12 m12 ">
+        <a [@fadeIn] *ngIf="selectCount == this.question.options.length" class="waves-effect waves-light btn-large blue" style="margin-top: 15px;" (click)="next()">Next</a>
+        <p *ngIf="selectCount != this.question.options.length"  style="margin-top: 30px; margin-bottom: 18px"> Please answer the question to continue </p>
+      </div>
+  </div>
+  <div id="modal2" class="modal bottom-sheet">
+   <div class="modal-content">
+     <div class="row">
+       <div class="col l3 s6 m3">
+         <a class="waves-effect waves-light blue btn-small modal-close no-uppercase" (click)="change(0)">{{this.question.options[openID][0]}}</a>
+       </div>
+       <div class="col l3 s6 m3">
+         <a class="waves-effect waves-light blue btn-small modal-close no-uppercase" (click)="change(1)">{{this.question.options[openID][1]}}</a>
+       </div>
+       <div class="col l12 s12 m12 hide-on-med-and-up"><br/></div>
+       <div class="col l3 s6 m3">
+         <a class="waves-effect waves-light blue btn-small modal-close no-uppercase" (click)="change(2)">{{this.question.options[openID][2]}}</a>
+       </div>
+       <div class="col l3 s6 m3">
+         <a class="waves-effect waves-light blue btn-small modal-close no-uppercase" (click)="change(3)">{{this.question.options[openID][3]}}</a>
+       </div>
+     </div>
+   </div>
+ </div>
+</div>

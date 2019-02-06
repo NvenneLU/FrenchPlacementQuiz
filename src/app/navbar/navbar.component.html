@@ -1,0 +1,37 @@
+<nav class="white" (@flyInOut.done)="finishAnim()" [@flyInOut] style="margin-bottom: 20px;">
+  <div class="nav-wrapper">
+    <img src="assets/LUlogo.png" class="hide-on-med-and-up brand-logo left" style="position: relative; top: 5px;">
+    <img src="assets/laurentian.svg" class="hide-on-small-only brand-logo left" height="60">
+    <ul id="nav-mobile" class="right">
+      <li ><a  class="waves-effect waves-light btn" style="width: 122px;"><i class="material-icons left">alarm</i>{{minutes}} : {{seconds}}</a></li>
+      <li ><a  class="waves-effect waves-light btn" [ngClass]="getColor()" style="width: 100px;"><i class="material-icons left">timer</i>{{time}}</a></li>
+    </ul>
+    <div class="progress blue lighten-4" style="border-radius: 0px;">
+      <div class="determinate yellow darken-1" [ngStyle]="{'width': progress + '%'}"></div>
+    </div>
+
+
+    <div class="row center white center" style="height: 40px; position: relative; top: -14px;">
+      <div class="col s3 blue-text valign-wrapper" style="height: 40px; box-shadow: -1px 0px 0px 0px #2196F3, 1px 0px 0px 0px #2196F3;">
+        <span class="hide-on-med-and-down">Part A Listening Comprehension</span>
+        <span class="hide-on-large-only hide-on-small-only">Part A Listening</span>
+        <span class="hide-on-med-and-up">Part A</span>
+      </div>
+      <div class="col s3 blue-text valign-wrapper" style="height: 40px; box-shadow: -1px 0px 0px 0px #2196F3, 1px 0px 0px 0px #2196F3;">
+        <span class="hide-on-med-and-down">Part B Listening Comprehension</span>
+        <span class="hide-on-large-only hide-on-small-only">Part B Listening</span>
+        <span class="hide-on-med-and-up">Part B</span>
+      </div>
+      <div class="col s3 blue-text valign-wrapper" style="height: 40px; box-shadow: -1px 0px 0px 0px #2196F3, 1px 0px 0px 0px #2196F3;">
+        <span class="hide-on-med-and-down">Part C Writing Comprehension</span>
+        <span class="hide-on-large-only hide-on-small-only">Part C Writing</span>
+        <span class="hide-on-med-and-up">Part C</span>
+      </div>
+      <div class="col s3 blue-text valign-wrapper" style="height: 40px; box-shadow: -1px 0px 0px 0px #2196F3, 1px 0px 0px 0px #2196F3;">
+        <span class="hide-on-med-and-down">Part D Writing Comprehension</span>
+        <span class="hide-on-large-only hide-on-small-only">Part D Writing</span>
+        <span class="hide-on-med-and-up">Part D</span>
+      </div>
+    </div>
+  </div>
+</nav>
