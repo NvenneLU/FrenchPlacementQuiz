@@ -1,3 +1,7 @@
 # FrenchTest
+### Index
+![](./french2.png)
 
-![](images/french1.png)
+
+### Quiz Start
+![](./french1.png)
